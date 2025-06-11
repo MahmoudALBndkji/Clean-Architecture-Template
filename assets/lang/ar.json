@@ -1,0 +1,12 @@
+{
+  "home_page": "الصفحة الرئيسية",
+  "error": "خطأ",
+  "done": "تم",
+  "operation_success": "نجحت العملية",
+  "login_successfully": "تم تسجيل الدخول بنجاح",
+  "username": "اسم المستخدم",
+  "password": "كلمة المرور",
+  "username_validation": "من فضلك أدخل الاسم",
+  "password_validation": "من فضلك أدخل كلمة المرور",
+  "login": "تسجيل الدخول"
+}

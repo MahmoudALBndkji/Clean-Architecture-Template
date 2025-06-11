@@ -1,0 +1,12 @@
+{
+  "home_page": "Home Page",
+  "error": "Error",
+  "done": "Done",
+  "operation_success": "The operation succeeded",
+  "login_successfully": "Login is Successfully",
+  "username": "User Name",
+  "password": "Password",
+  "username_validation": "Please Enter User Name",
+  "password_validation": "Please Enter Password",
+  "login": "Login"
+}
