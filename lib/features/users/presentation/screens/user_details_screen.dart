@@ -24,7 +24,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('user_details'.tr()),
+        title: Text(context.tr('user_details')),
         actions: [
           BlocBuilder<UserCubit, UserState>(
             buildWhen: (p, c) => c.userDetails.status.isSuccess,

@@ -18,6 +18,8 @@ class AppLocalizations {
 
   late Map<String, String> _localizedStrings;
 
+  bool hasKey(String key) => _localizedStrings.containsKey(key);
+
   Future<void> load() async {
     final jsonString =
         await rootBundle.loadString('assets/lang/${locale.languageCode}.json');
@@ -67,6 +69,12 @@ class LocalizationService {
 
 extension TranslateX on String {
   String tr() => LocalizationService.tr(this);
+}
+
+extension LocalizationX on BuildContext {
+  String tr(String key) {
+    return AppLocalizations.of(this).translate(key);
+  }
 }
 
 bool isCacheLanguage() => SecureStorage.instance.locale != null;

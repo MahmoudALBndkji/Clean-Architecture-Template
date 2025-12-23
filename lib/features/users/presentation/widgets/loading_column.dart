@@ -15,7 +15,7 @@ class LoadingColumn extends StatelessWidget {
         children: [
           const CircularProgressIndicator(color: AppColors.blackColor),
           Text(
-            message.tr(),
+            context.tr(message),
             style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.blackColor),
           ),
         ],

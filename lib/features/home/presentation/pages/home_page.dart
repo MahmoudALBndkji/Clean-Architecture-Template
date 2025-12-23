@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(
-          "home_page".tr(),
+          context.tr("home_page"),
           style: TextStyles.textStyle16,
         ),
         elevation: 1.0,
@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          "home_page".tr(),
+          context.tr("home_page"),
           style: TextStyles.textStyle20,
         ),
       ),

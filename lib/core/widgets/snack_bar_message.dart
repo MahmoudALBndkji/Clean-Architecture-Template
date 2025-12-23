@@ -3,11 +3,12 @@ import 'package:clean_architecture_template/core/utils/styles.dart';
 import 'package:clean_architecture_template/core/constants/app_colors.dart';
 import 'package:clean_architecture_template/core/languages/app_localizations.dart';
 
-void customSnackBar(
-        {required BuildContext context,
-        required String keyLanguage,
-        Color? backgroundColor = AppColors.primaryColor,
-        EdgeInsets? margin = const EdgeInsets.all(8.0)}) =>
+void customSnackBar({
+  required BuildContext context,
+  required String keyLanguage,
+  EdgeInsets? margin = const EdgeInsets.all(8.0),
+  Color? backgroundColor = AppColors.primaryColor,
+}) =>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         margin: margin,
@@ -21,7 +22,7 @@ void customSnackBar(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              keyLanguage.tr(),
+              context.tr(keyLanguage),
               style:
                   TextStyles.textStyle16.copyWith(color: AppColors.whiteColor),
               textAlign: TextAlign.center,
