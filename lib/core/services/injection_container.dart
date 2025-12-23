@@ -1,40 +1,33 @@
-import 'api_service.dart';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:clean_architecture_template/core/languages/bloc/language_bloc.dart';
-import 'package:clean_architecture_template/features/home/presentation/bloc/home_bloc.dart';
-import 'package:clean_architecture_template/features/auth/domain/usecases/login_use_case.dart';
-import 'package:clean_architecture_template/features/auth/domain/repositories/auth_repositories.dart';
-import 'package:clean_architecture_template/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:clean_architecture_template/features/auth/data/repositories/auth_repositories_imp.dart';
-import 'package:clean_architecture_template/features/auth/presentation/bloc/authentication_bloc.dart';
+import 'package:clean_architecture_template/core/services/api/dio_consumer.dart';
+import 'package:clean_architecture_template/core/services/api/api_consumer.dart';
+import 'package:clean_architecture_template/core/services/api/app_interceptors.dart';
+import 'package:clean_architecture_template/core/languages/cubit/language_cubit.dart';
+import 'package:clean_architecture_template/features/users/domain/repos/users_repository.dart';
+import 'package:clean_architecture_template/features/users/data/repos/user_repository_impl.dart';
+import 'package:clean_architecture_template/features/users/data/datasources/user_data_source.dart';
+import 'package:clean_architecture_template/features/users/presentation/cubits/user/user_cubit.dart';
+import 'package:clean_architecture_template/features/users/domain/usecases/get_all_users_use_case.dart';
+import 'package:clean_architecture_template/features/users/data/datasources/user_remote_data_source.dart';
+import 'package:clean_architecture_template/features/users/domain/usecases/get_user_details_use_case.dart';
 
 final sl = GetIt.instance;
-Future<void> init() async {
-  // Bloc
-  sl.registerFactory(() => LanguageBloc());
-  sl.registerFactory(() => AuthenticationBloc(loginUseCase: sl()));
-  sl.registerFactory(() => HomeBloc());
+Future<void> initServiceLocator() async {
+  sl.registerFactory(() => LanguageCubit());
 
-  // [Usecases]
-  sl.registerLazySingleton(() => LoginUseCase(repository: sl()));
+  sl.registerFactory(
+      () => UserCubit(getAllUsersUseCase: sl(), getUserDetailsUseCase: sl()));
+  sl.registerLazySingleton(() => GetAllUsersUseCase(sl()));
+  sl.registerLazySingleton(() => GetUserDetailsUseCase(sl()));
+  sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(sl()));
+  sl.registerLazySingleton<UserDataSource>(() => UserRemoteDataSource(sl()));
 
-  // [Repository]
-  sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImp(authRemoteDataSource: sl()),
+  // Remote Data Source [API]
+  sl.registerLazySingleton(() => Dio());
+  sl.registerLazySingleton<AppIntercepters>(
+      () => AppIntercepters(client: sl()));
+  sl.registerLazySingleton<ApiConsumer>(
+    () => DioConsumer(client: sl()),
   );
-
-  // [DataSources]
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(service: sl()),
-  );
-
-  sl.registerLazySingleton(() => ApiService());
-
-  // External
-  final SharedPreferences sharedPreferences =
-      await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
-  sl.registerLazySingleton(() => http.Client());
 }

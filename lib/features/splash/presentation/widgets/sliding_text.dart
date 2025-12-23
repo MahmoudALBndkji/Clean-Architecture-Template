@@ -1,6 +1,6 @@
-import 'package:clean_architecture_template/core/constants/constants.dart';
-import 'package:clean_architecture_template/core/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:clean_architecture_template/core/utils/styles.dart';
+import 'package:clean_architecture_template/core/constants/app_colors.dart';
 
 class SlidingText extends StatelessWidget {
   const SlidingText({
@@ -18,7 +18,7 @@ class SlidingText extends StatelessWidget {
           child: Text(
             "Clean Architecture Template",
             textAlign: TextAlign.center,
-            style: TextStyles.textStyle20.copyWith(color: primaryColor),
+            style: TextStyles.textStyle20.copyWith(color: AppColors.blackColor),
           ),
         ),
       );

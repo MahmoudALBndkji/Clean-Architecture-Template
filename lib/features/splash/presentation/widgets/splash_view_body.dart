@@ -1,12 +1,8 @@
-import 'package:clean_architecture_template/core/utils/assets.dart';
-import 'package:clean_architecture_template/core/widgets/navigation.dart';
-import 'package:clean_architecture_template/features/auth/presentation/bloc/authentication_bloc.dart';
-import 'package:clean_architecture_template/features/auth/presentation/pages/login_page.dart';
-import 'package:clean_architecture_template/features/splash/presentation/widgets/sliding_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:clean_architecture_template/core/services/injection_container.dart'
-    as di;
+import 'package:go_router/go_router.dart';
+import 'package:clean_architecture_template/core/utils/assets.dart';
+import 'package:clean_architecture_template/core/routing/app_paths.dart';
+import 'package:clean_architecture_template/features/splash/presentation/widgets/sliding_text.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -65,17 +61,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void navigateToLogin() {
     Future.delayed(
       const Duration(seconds: 2),
-      () {
-        Navigator.pushReplacement(
-          context,
-          SizeTransitionToTop(
-            BlocProvider(
-              create: (context) => di.sl<AuthenticationBloc>(),
-              child: LoginPage(),
-            ),
-          ),
-        );
-      },
+      () => context.go(AppPaths.users),
     );
   }
 }

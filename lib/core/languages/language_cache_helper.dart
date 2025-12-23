@@ -1,16 +1,11 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:clean_architecture_template/core/network/local/secure_storage.dart';
 
 class LanguageCacheHelper {
-  Future<void> cacheLanguageCode(String languageCode) async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("locale", languageCode);
-  }
+  Future<void> cacheLanguageCode(String languageCode) async =>
+      await SecureStorage.instance.write(key: "locale", value: languageCode);
 
   Future<String> getCachedLanguageCode() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    final cachedLanguageCode = sharedPreferences.getString("locale");
+    final cachedLanguageCode = await SecureStorage.instance.read(key: "locale");
     return cachedLanguageCode ?? "en";
-    // if Not Cache Language Return Default Device Language
-    // return cachedLanguageCode ?? Platform.localeName.substring(0, 2);
   }
 }
