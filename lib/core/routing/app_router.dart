@@ -7,6 +7,8 @@ import 'package:clean_architecture_template/features/users/presentation/screens/
 import 'package:clean_architecture_template/features/splash/presentation/screens/splash_screen.dart';
 import 'package:clean_architecture_template/features/users/presentation/cubits/user/user_cubit.dart';
 import 'package:clean_architecture_template/features/users/presentation/screens/user_details_screen.dart';
+import 'package:clean_architecture_template/features/home/presentation/cubit/home_cubit.dart';
+import 'package:clean_architecture_template/features/home/presentation/screens/home_layout.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -21,10 +23,33 @@ class AppRouter {
         name: 'splash',
         builder: (context, state) => const SplashScreen(),
       ),
+      GoRoute(
+        path: AppPaths.home,
+        name: 'home',
+        builder: (context, state) {
+          final userCubit = sl<UserCubit>();
+          if (userCubit.state.users.data == null ||
+              userCubit.state.users.data!.isEmpty) {
+            userCubit.getAllUsers();
+          }
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => HomeCubit()),
+              BlocProvider.value(value: userCubit),
+            ],
+            child: const HomeLayout(),
+          );
+        },
+      ),
       ShellRoute(
         builder: (context, state, child) {
-          return BlocProvider(
-            create: (context) => sl<UserCubit>()..getAllUsers(),
+          final userCubit = sl<UserCubit>();
+          if (userCubit.state.users.data == null ||
+              userCubit.state.users.data!.isEmpty) {
+            userCubit.getAllUsers();
+          }
+          return BlocProvider.value(
+            value: userCubit,
             child: child,
           );
         },

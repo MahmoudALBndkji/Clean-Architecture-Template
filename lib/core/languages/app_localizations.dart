@@ -77,6 +77,8 @@ extension LocalizationX on BuildContext {
   }
 }
 
+String defaultLanguage() => "en";
+
 bool isCacheLanguage() => SecureStorage.instance.locale != null;
 
 bool isArabic() => SecureStorage.instance.locale == "ar";

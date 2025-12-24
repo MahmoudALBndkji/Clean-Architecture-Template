@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clean_architecture_template/core/base/base_state.dart';
 import 'package:clean_architecture_template/features/users/presentation/widgets/loading_column.dart';
 import 'package:clean_architecture_template/features/users/presentation/cubits/user/user_cubit.dart';
+import 'package:go_router/go_router.dart';
 
 class UserDetailsScreen extends StatefulWidget {
   const UserDetailsScreen({super.key, required this.userId});
@@ -25,6 +26,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(context.tr('user_details')),
+        leading: IconButton(
+            onPressed: () => context.pop(), icon: Icon(Icons.arrow_back)),
         actions: [
           BlocBuilder<UserCubit, UserState>(
             buildWhen: (p, c) => c.userDetails.status.isSuccess,

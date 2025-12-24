@@ -27,5 +27,7 @@
   "request_cancelled": "Request was cancelled",
   "bad_certificate_error": "Bad certificate error",
   "users": "Users",
-  "user_details": "User Details"
+  "user_details": "User Details",
+  "profile": "Profile",
+  "settings": "Settings"
 }

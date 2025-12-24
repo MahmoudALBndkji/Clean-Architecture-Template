@@ -9,49 +9,49 @@ import 'package:clean_architecture_template/core/languages/cubit/language_cubit.
 
 class CleanArchTemplate extends StatelessWidget {
   const CleanArchTemplate({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => sl<LanguageCubit>()..getSavedLanguage(),
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, state) {
-          if (state is ChangeLanguageState) {
-            return MaterialApp.router(
-              routerConfig: AppRouter.router,
-              locale: state.locale,
-              title: "Clean Arch Template",
-              debugShowCheckedModeBanner: false,
-              supportedLocales: const [
-                Locale("en"),
-                Locale("ar"),
-              ],
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              localeResolutionCallback: (deviceLocale, supportedLocales) {
-                for (Locale locale in supportedLocales) {
-                  if (deviceLocale != null &&
-                      deviceLocale.languageCode == locale.languageCode) {
-                    return deviceLocale;
-                  }
+          final locale =
+              state is ChangeLanguageState ? state.locale : Locale(defaultLanguage());
+          return MaterialApp.router(
+            routerConfig: AppRouter.router,
+            locale: locale,
+            title: "Clean Arch Template",
+            debugShowCheckedModeBanner: false,
+            supportedLocales: const [
+              Locale("en"),
+              Locale("ar"),
+            ],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            localeResolutionCallback: (deviceLocale, supportedLocales) {
+              for (Locale locale in supportedLocales) {
+                if (deviceLocale != null &&
+                    deviceLocale.languageCode == locale.languageCode) {
+                  return deviceLocale;
                 }
-                return supportedLocales.first;
-              },
-              theme: ThemeData(
-                fontFamily: 'myFont',
-                useMaterial3: true,
-                textSelectionTheme: TextSelectionThemeData(
-                  cursorColor: AppColors.primaryColor,
-                  selectionColor: AppColors.primaryColor,
-                  selectionHandleColor: AppColors.primaryColor,
-                ),
+              }
+              return supportedLocales.first;
+            },
+            theme: ThemeData(
+              fontFamily: 'myFont',
+              useMaterial3: true,
+              textSelectionTheme: TextSelectionThemeData(
+                cursorColor: AppColors.primaryColor,
+                selectionColor: AppColors.primaryColor,
+                selectionHandleColor: AppColors.primaryColor,
               ),
-            );
-          }
-          return const SizedBox();
+            ),
+          );
         },
       ),
     );

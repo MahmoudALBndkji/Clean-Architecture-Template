@@ -1,3 +1,4 @@
+import 'package:clean_architecture_template/core/languages/app_localizations.dart';
 import 'package:clean_architecture_template/core/network/local/secure_storage.dart';
 
 class LanguageCacheHelper {
@@ -6,6 +7,6 @@ class LanguageCacheHelper {
 
   Future<String> getCachedLanguageCode() async {
     final cachedLanguageCode = await SecureStorage.instance.read(key: "locale");
-    return cachedLanguageCode ?? "en";
+    return cachedLanguageCode ?? defaultLanguage();
   }
 }

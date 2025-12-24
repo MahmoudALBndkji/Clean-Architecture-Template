@@ -25,7 +25,6 @@ class LanguageCubit extends Cubit<LanguageState> {
   }
 
   Future<void> changeLanguage(String languageCode) async {
-    emit(LanguageInitial());
     selectedLanguage = languageCode;
     await LanguageCacheHelper().cacheLanguageCode(languageCode);
     emit(ChangeLanguageState(locale: Locale(languageCode)));

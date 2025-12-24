@@ -1,8 +1,6 @@
-import 'package:clean_architecture_template/core/languages/app_localizations.dart';
-import 'package:clean_architecture_template/core/languages/cubit/language_cubit.dart';
-import 'package:clean_architecture_template/features/users/presentation/widgets/users_list_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clean_architecture_template/core/languages/app_localizations.dart';
+import 'package:clean_architecture_template/features/users/presentation/widgets/users_list_view.dart';
 
 class UsersScreen extends StatelessWidget {
   const UsersScreen({super.key});
@@ -20,15 +18,6 @@ class UsersScreen extends StatelessWidget {
             fontSize: 32,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () => context
-                .read<LanguageCubit>()
-                .changeLanguage(currentLangAr() ? "en" : "ar"),
-            icon: Icon(Icons.translate_outlined),
-          ),
-          SizedBox(width: 10),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(14.0),

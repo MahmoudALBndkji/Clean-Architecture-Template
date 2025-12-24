@@ -61,7 +61,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   void navigateToLogin() {
     Future.delayed(
       const Duration(seconds: 2),
-      () => context.go(AppPaths.users),
+      () => context.go(AppPaths.home),
     );
   }
 }

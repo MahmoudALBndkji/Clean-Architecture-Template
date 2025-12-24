@@ -27,5 +27,7 @@
   "request_cancelled": "تم إلغاء الطلب",
   "bad_certificate_error": "شهادة غير صالحة",
   "users": "المستخدمون",
-  "user_details": "تفاصيل المستخدم"
+  "user_details": "تفاصيل المستخدم",
+  "profile": "الملف الشخصي",
+  "settings": "الإعدادات"
 }

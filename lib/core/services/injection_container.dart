@@ -16,7 +16,7 @@ final sl = GetIt.instance;
 Future<void> initServiceLocator() async {
   sl.registerFactory(() => LanguageCubit());
 
-  sl.registerFactory(
+  sl.registerLazySingleton(
       () => UserCubit(getAllUsersUseCase: sl(), getUserDetailsUseCase: sl()));
   sl.registerLazySingleton(() => GetAllUsersUseCase(sl()));
   sl.registerLazySingleton(() => GetUserDetailsUseCase(sl()));
