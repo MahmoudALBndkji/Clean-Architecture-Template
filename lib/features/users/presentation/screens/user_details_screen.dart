@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:clean_architecture_template/core/base/base_state.dart';
 import 'package:clean_architecture_template/features/users/presentation/widgets/loading_column.dart';
 import 'package:clean_architecture_template/features/users/presentation/cubits/user/user_cubit.dart';
+import 'package:clean_architecture_template/features/favourite/presentation/cubit/favourite_cubit.dart';
 import 'package:go_router/go_router.dart';
 
 class UserDetailsScreen extends StatefulWidget {
@@ -31,15 +32,29 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         actions: [
           BlocBuilder<UserCubit, UserState>(
             buildWhen: (p, c) => c.userDetails.status.isSuccess,
-            builder: (context, state) {
-              if (state.userDetails.status.isSuccess) {
-                return IconButton(
-                  icon: Icon(
-                    Icons.favorite,
-                    color: state.isFavorite ? Colors.red : Colors.grey,
-                  ),
-                  onPressed: () {
-                    context.read<UserCubit>().toggleFavorite();
+            builder: (context, userState) {
+              if (userState.userDetails.status.isSuccess) {
+                return BlocBuilder<FavouriteCubit, FavouriteState>(
+                  builder: (context, favouriteState) {
+                    final isFavourite = favouriteState.favourites.data
+                            ?.any((fav) => fav.id == widget.userId) ??
+                        false;
+                    return IconButton(
+                      icon: Icon(
+                        Icons.favorite,
+                        color: isFavourite ? Colors.red : Colors.grey,
+                      ),
+                      onPressed: () {
+                        final user = userState.userDetails.data!;
+                        if (isFavourite) {
+                          context
+                              .read<FavouriteCubit>()
+                              .removeFavourite(widget.userId);
+                        } else {
+                          context.read<FavouriteCubit>().addFavourite(user);
+                        }
+                      },
+                    );
                   },
                 );
               }
@@ -57,8 +72,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
             );
           }
         },
-        buildWhen: (p, c) =>
-            p.userDetails != c.userDetails || p.isFavorite != c.isFavorite,
+        buildWhen: (p, c) => p.userDetails != c.userDetails,
         builder: (context, state) {
           if (state.userDetails.status.isLoading ||
               state.userDetails.status.isInitial) {

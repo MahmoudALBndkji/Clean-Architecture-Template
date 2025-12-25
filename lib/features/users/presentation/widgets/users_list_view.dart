@@ -26,7 +26,6 @@ class _UsersListViewState extends State<UsersListView> with PaginationMixin {
       },
       buildWhen: (p, c) => p.users != c.users,
       builder: (context, state) {
-        final userCubit = context.read<UserCubit>();
         if (state.users.status.isLoading && state.users.data == null) {
           return const LoadingColumn(message: 'loading');
         }
@@ -42,10 +41,7 @@ class _UsersListViewState extends State<UsersListView> with PaginationMixin {
         return ListView.builder(
           controller: scrollController,
           itemCount: users.length,
-          itemBuilder: (_, i) => UserCard(
-            user: users[i],
-            userCubit: userCubit,
-          ),
+          itemBuilder: (_, i) => UserCard(user: users[i]),
         );
       },
     );

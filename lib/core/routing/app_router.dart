@@ -9,6 +9,7 @@ import 'package:clean_architecture_template/features/users/presentation/cubits/u
 import 'package:clean_architecture_template/features/users/presentation/screens/user_details_screen.dart';
 import 'package:clean_architecture_template/features/home/presentation/cubit/home_cubit.dart';
 import 'package:clean_architecture_template/features/home/presentation/screens/home_layout.dart';
+import 'package:clean_architecture_template/features/favourite/presentation/cubit/favourite_cubit.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -28,6 +29,7 @@ class AppRouter {
         name: 'home',
         builder: (context, state) {
           final userCubit = sl<UserCubit>();
+          final favouriteCubit = sl<FavouriteCubit>();
           if (userCubit.state.users.data == null ||
               userCubit.state.users.data!.isEmpty) {
             userCubit.getAllUsers();
@@ -36,6 +38,7 @@ class AppRouter {
             providers: [
               BlocProvider(create: (_) => HomeCubit()),
               BlocProvider.value(value: userCubit),
+              BlocProvider.value(value: favouriteCubit),
             ],
             child: const HomeLayout(),
           );
@@ -44,12 +47,16 @@ class AppRouter {
       ShellRoute(
         builder: (context, state, child) {
           final userCubit = sl<UserCubit>();
+          final favouriteCubit = sl<FavouriteCubit>();
           if (userCubit.state.users.data == null ||
               userCubit.state.users.data!.isEmpty) {
             userCubit.getAllUsers();
           }
-          return BlocProvider.value(
-            value: userCubit,
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: userCubit),
+              BlocProvider.value(value: favouriteCubit),
+            ],
             child: child,
           );
         },

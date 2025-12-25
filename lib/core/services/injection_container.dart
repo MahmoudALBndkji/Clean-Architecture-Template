@@ -11,11 +11,12 @@ import 'package:clean_architecture_template/features/users/presentation/cubits/u
 import 'package:clean_architecture_template/features/users/domain/usecases/get_all_users_use_case.dart';
 import 'package:clean_architecture_template/features/users/data/datasources/user_remote_data_source.dart';
 import 'package:clean_architecture_template/features/users/domain/usecases/get_user_details_use_case.dart';
+import 'package:clean_architecture_template/features/favourite/presentation/cubit/favourite_cubit.dart';
 
 final sl = GetIt.instance;
 Future<void> initServiceLocator() async {
   sl.registerFactory(() => LanguageCubit());
-
+  sl.registerLazySingleton(() => FavouriteCubit());
   sl.registerLazySingleton(
       () => UserCubit(getAllUsersUseCase: sl(), getUserDetailsUseCase: sl()));
   sl.registerLazySingleton(() => GetAllUsersUseCase(sl()));

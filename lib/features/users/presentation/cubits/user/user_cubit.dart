@@ -81,6 +81,4 @@ class UserCubit extends Cubit<UserState> {
               .copyWith(status: BaseStatus.failure, error: errorMessage),
         ),
       );
-
-  void toggleFavorite() => emit(state.copyWith(isFavorite: !state.isFavorite));
 }

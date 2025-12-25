@@ -28,6 +28,8 @@
   "bad_certificate_error": "Bad certificate error",
   "users": "Users",
   "user_details": "User Details",
-  "profile": "Profile",
-  "settings": "Settings"
+  "favourite": "Favourite",
+  "settings": "Settings",
+  "no_favourites_yet": "No favourites yet",
+  "retry": "Retry"
 }

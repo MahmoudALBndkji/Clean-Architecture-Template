@@ -28,6 +28,8 @@
   "bad_certificate_error": "شهادة غير صالحة",
   "users": "المستخدمون",
   "user_details": "تفاصيل المستخدم",
-  "profile": "الملف الشخصي",
-  "settings": "الإعدادات"
+  "favourite": "المفضلة",
+  "settings": "الإعدادات",
+  "no_favourites_yet": "لا يوجد مفضلات بعد",
+  "retry": "إعادة المحاولة"
 }
