@@ -1,3 +1,4 @@
+import 'package:clean_architecture_template/core/languages/app_localizations.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +41,7 @@ class UserCubit extends Cubit<UserState> {
       final failure = ServerFailure.fromDioException(error);
       emitUserStateError(failure.message);
     } catch (_) {
-      emitUserStateError('general_error');
+      emitUserStateError('general_error'.tr());
     }
   }
 
@@ -71,7 +72,7 @@ class UserCubit extends Cubit<UserState> {
       final failure = ServerFailure.fromDioException(error);
       emitUserDetailsStateError(failure.message);
     } catch (_) {
-      emitUserDetailsStateError('general_error');
+      emitUserDetailsStateError('general_error'.tr());
     }
   }
 
